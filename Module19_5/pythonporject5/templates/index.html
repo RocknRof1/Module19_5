@@ -1,0 +1,28 @@
+
+{% block content %}
+    <h1>Список постов</h1>
+    <ul>
+        {% for post in page_posts %}
+            <li>
+                {{ post.title }} ({{ post.created_at }})
+                <p>{{ post.content }}</p>
+            </li>
+        {% empty %}
+            <p>Нет постов.</p>
+        {% endfor %}
+    </ul>
+    <!-- показываем пагинатор -->
+    <div class="pagination">
+        <p>Страницы:</p>
+        <ul>
+            {% if page_posts.has_previous %}
+                <a href="?page={{ page_posts.previous_page_number }}">{{ page_posts.previous_page_number }}</a>
+            {% endif %}
+            {{ page_posts.number }}/{{ paginator.num_pages }}
+            {% if page_posts.has_next %}
+                <a href="?page={{ page_posts.next_page_number }}">{{page_posts.next_page_number}}</a>
+                <a href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}
